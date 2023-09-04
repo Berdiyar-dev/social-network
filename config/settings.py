@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'posts',
     'chat',
     'drf_spectacular',
-    
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
