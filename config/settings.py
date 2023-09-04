@@ -23,6 +23,10 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:    
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 
 # Application definition
 
@@ -130,14 +134,11 @@ USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+STATIC_URL = 'static/'
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [BASE_DIR/'static/']
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media/'
 
@@ -152,5 +153,5 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-LOGOUT_REDIRECT_URL = '/account/'
+LOGOUT_REDIRECT_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
